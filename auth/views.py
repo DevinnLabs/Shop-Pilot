@@ -17,8 +17,8 @@ def signup(request):
     if email is None or password is None:
         return Response({'error': 'Please provide both email and password'}, status='400')
     if User.objects.filter(email=email).exists():
-        return Response({'error': 'Username already exists'}, status='400')
-    user = User.objects.create_user(username=email, password=password)
+        return Response({'error': 'Email already exists'}, status='400')
+    user = User.objects.create_user(email=email, password=password)
     refresh = RefreshToken.for_user(user)
     return Response({'refresh': str(refresh), 'access': str(refresh.access_token)})
 
